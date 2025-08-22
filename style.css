@@ -1,0 +1,91 @@
+/* Root & resets */
+html, body {
+  height: 100%;
+}
+
+/* Parallax base */
+#parallaxRoot {
+  perspective: 1px; /* enable 3D transforms context */
+  overflow: hidden;
+}
+.parallax-layer {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.parallax-layer img,
+.parallax-layer > *:not(.absolute) {
+  pointer-events: none;
+}
+
+/* Card hover polish */
+.card:hover {
+  transform: translateY(-2px);
+}
+.card img {
+  height: 220px;
+}
+
+/* Back to top button transitions */
+#backToTop.show {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Root & resets */
+html, body {
+  height: 100%;
+}
+
+/* Parallax base */
+#parallaxRoot {
+  perspective: 1px; /* enable 3D transforms context */
+  overflow: hidden;
+}
+.parallax-layer {
+  position: absolute;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+.parallax-layer img,
+.parallax-layer > *:not(.absolute) {
+  pointer-events: none;
+}
+
+/* Card hover polish */
+.card:hover {
+  transform: translateY(-2px);
+}
+.card img {
+  height: 220px;
+}
+
+/* Back to top button transitions */
+#backToTop.show {
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+/* Reveal on scroll */
+.reveal {
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity .6s ease, transform .6s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+

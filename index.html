@@ -1,0 +1,519 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parallax Scrolling Art Gallery</title>
+    <meta name="description" content="A parallax scrolling gallery of iconic artworks with dark/light mode." />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tailwind Config then CDN -->
+    <script>
+      window.tailwind = window.tailwind || {};
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: '#7c3aed'
+            },
+            boxShadow: {
+              glow: '0 0 0 3px rgba(124, 58, 237, 0.35)'
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-black text-gray-900 dark:bg-gray-900 dark:text-gray-100 selection:bg-brand/20">
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary dark:bg-gray-800 dark:text-gray-100 sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold tracking-tight text-decoration-none" href="#">Parallax Gallery</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#hero">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <button id="themeToggle" class="btn btn-outline-secondary rounded-pill px-3 py-2 flex items-center gap-2 hover:shadow-glow" aria-pressed="false" aria-label="Toggle dark mode">
+              <span class="icon-sun">☀️</span>
+              <span class="icon-moon hidden">🌙</span>
+              <span class="text-sm">Theme</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Parallax Hero -->
+    <section id="hero" class="relative min-h-[85vh] overflow-hidden">
+      <div id="parallaxRoot" class="absolute inset-0">
+        <!-- Background gradient layer -->
+        <div class="parallax-layer -z-20" data-speed="0.1" aria-hidden="true">
+          <div class="absolute inset-0 bg-gradient-to-b from-brand/20 via-transparent to-brand/10 dark:from-brand/30"></div>
+        </div>
+
+        <!-- Far artwork silhouettes -->
+        <img
+          class="parallax-layer -z-10 opacity-60 object-contain max-w-none select-none"
+          data-speed="0.15"
+          alt="Starry Night silhouette"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+          style="top:-10%; left:-5%; width:60rem;"
+        />
+
+        <!-- Mid layer framed art -->
+        <img
+          class="parallax-layer drop-shadow-xl object-contain max-w-none select-none rounded-xl border border-white/40 dark:border-white/10"
+          data-speed="0.35"
+          alt="The Great Wave off Kanagawa"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg"
+          style="top:10%; right:-8%; width:38rem; transform:rotate(2deg)"
+        />
+
+        <!-- Foreground framed art -->
+        <img
+          class="parallax-layer drop-shadow-2xl object-contain max-w-none select-none rounded-xl border border-white/50 dark:border-white/10"
+          data-speed="0.55"
+          alt="Girl with a Pearl Earring"
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Meisje_met_de_parel.jpg"
+          style="bottom:-6%; left:-6%; width:30rem; transform:rotate(-3deg)"
+        />
+
+        <!-- Foreground floating shapes -->
+        <div class="parallax-layer" data-speed="0.75" aria-hidden="true">
+          <div class="absolute -right-24 top-20 h-56 w-56 rounded-full bg-brand/20 blur-2xl dark:bg-brand/30"></div>
+          <div class="absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-brand/10 blur-3xl dark:bg-brand/20"></div>
+        </div>
+      </div>
+
+      <div class="container position-relative z-10 py-5">
+        <div class="row align-items-center min-vh-75">
+          <div class="col-lg-7">
+            <h1 class="display-4 fw-bold leading-tight mb-3 tracking-tight">
+              Parallax Scrolling Art Gallery
+            </h1>
+            <p class="lead text-muted dark:text-gray-300 mb-4">
+              Experience famous masterpieces and photography with a dynamic, multi-layer parallax effect. Smooth, responsive, and theme-aware.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#gallery" class="btn btn-primary px-4 py-2">Browse Gallery</a>
+              <a href="#about" class="btn btn-outline-primary px-4 py-2">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-5">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="h1 fw-semibold">Featured Works</h2>
+          <p class="text-muted dark:text-gray-300">A curated selection of iconic art and photography.</p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          <!-- Card 1 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" class="card-img-top object-cover" alt="Starry Night by Vincent van Gogh" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Starry Night</h3>
+                <p class="card-text text-muted dark:text-gray-300">Vincent van Gogh, 1889</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg" class="card-img-top object-cover" alt="The Great Wave off Kanagawa by Hokusai" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">The Great Wave</h3>
+                <p class="card-text text-muted dark:text-gray-300">Katsushika Hokusai, 1831</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Meisje_met_de_parel.jpg" class="card-img-top object-cover" alt="Girl with a Pearl Earring by Vermeer" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Girl with a Pearl Earring</h3>
+                <p class="card-text text-muted dark:text-gray-300">Johannes Vermeer, c. 1665</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Black and white portrait photography" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Monochrome Portrait</h3>
+                <p class="card-text text-muted dark:text-gray-300">Contemporary Photography</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Abstract colorful shapes" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Abstract Geometry</h3>
+                <p class="card-text text-muted dark:text-gray-300">Digital Art</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1473649085228-583485e6e4d7?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Landscape photography of mountains" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Alpine Vista</h3>
+                <p class="card-text text-muted dark:text-gray-300">Landscape Photography</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-5 border-top border-gray-200/60 dark:border-white/10">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <h2 class="h1 fw-semibold mb-3">Crafted for Scroll Lovers</h2>
+            <p class="text-muted dark:text-gray-300 mb-3">
+              This gallery demonstrates a layered parallax effect powered by JavaScript with accessibility and performance in mind. Use the theme toggle to switch between light and dark modes. All images are public domain or free-to-use photography.
+            </p>
+            <ul class="list-unstyled small text-muted dark:text-gray-300">
+              <li class="mb-2">Responsive layout via <strong>Bootstrap</strong> grid</li>
+              <li class="mb-2">Utilities and theming via <strong>Tailwind</strong></li>
+              <li class="mb-2">Smooth parallax using <strong>requestAnimationFrame</strong></li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <div class="rounded-3 p-4 bg-light dark:bg-gray-800 border border-gray-200 dark:border-white/10">
+              <pre class="m-0 text-sm"><code>// Toggle theme
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const stored = localStorage.getItem('theme');
+const initial = stored ? stored === 'dark' : prefersDark;
+document.documentElement.classList.toggle('dark', initial);
+</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <button id="backToTop" class="fixed bottom-6 right-6 z-40 btn btn-primary rounded-circle w-12 h-12 p-0 d-flex align-items-center justify-content-center opacity-0 pointer-events-none transition" aria-label="Back to top">↑</button>
+
+    <footer class="py-4 border-top border-gray-200/60 dark:border-white/10">
+      <div class="container d-flex justify-content-between align-items-center">
+        <p class="m-0 text-muted dark:text-gray-300 small">© <span id="year"></span> Parallax Gallery</p>
+        <a href="#hero" class="text-decoration-none small">Back to top</a>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- App Script -->
+    <script src="./script.js"></script>
+  </body>
+  </html>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parallax Scrolling Art Gallery</title>
+    <meta name="description" content="A parallax scrolling gallery of iconic artworks with dark/light mode." />
+
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+      crossorigin="anonymous"
+    />
+
+    <!-- Tailwind Config then CDN -->
+    <script>
+      window.tailwind = window.tailwind || {};
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            colors: {
+              brand: '#7c3aed'
+            },
+            boxShadow: {
+              glow: '0 0 0 3px rgba(124, 58, 237, 0.35)'
+            }
+          }
+        }
+      };
+    </script>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- App Styles -->
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body class="bg-white text-gray-900 dark:bg-gray-900 dark:text-gray-100 selection:bg-brand/20">
+    <!-- Header / Navbar -->
+    <nav class="navbar navbar-expand-lg bg-body-tertiary dark:bg-gray-800 dark:text-gray-100 sticky-top shadow-sm">
+      <div class="container">
+        <a class="navbar-brand fw-bold tracking-tight text-decoration-none" href="#">Parallax Gallery</a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link active" aria-current="page" href="#hero">Home</a></li>
+            <li class="nav-item"><a class="nav-link" href="#gallery">Gallery</a></li>
+            <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+          </ul>
+          <div class="d-flex align-items-center gap-2">
+            <button id="themeToggle" class="btn btn-outline-secondary rounded-pill px-3 py-2 flex items-center gap-2 hover:shadow-glow" aria-pressed="false" aria-label="Toggle dark mode">
+              <span class="icon-sun">☀️</span>
+              <span class="icon-moon hidden">🌙</span>
+              <span class="text-sm">Theme</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Parallax Hero -->
+    <section id="hero" class="relative min-h-[85vh] overflow-hidden">
+      <div id="parallaxRoot" class="absolute inset-0">
+        <!-- Background gradient layer -->
+        <div class="parallax-layer -z-20" data-speed="0.1" aria-hidden="true">
+          <div class="absolute inset-0 bg-gradient-to-b from-brand/20 via-transparent to-brand/10 dark:from-brand/30"></div>
+        </div>
+
+        <!-- Far artwork silhouettes -->
+        <img
+          class="parallax-layer -z-10 opacity-60 object-contain max-w-none select-none"
+          data-speed="0.15"
+          alt="Starry Night silhouette"
+          src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"
+          style="top:-10%; left:-5%; width:60rem;"
+        />
+
+        <!-- Mid layer framed art -->
+        <img
+          class="parallax-layer drop-shadow-xl object-contain max-w-none select-none rounded-xl border border-white/40 dark:border-white/10"
+          data-speed="0.35"
+          alt="The Great Wave off Kanagawa"
+          src="https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg"
+          style="top:10%; right:-8%; width:38rem; transform:rotate(2deg)"
+        />
+
+        <!-- Foreground framed art -->
+        <img
+          class="parallax-layer drop-shadow-2xl object-contain max-w-none select-none rounded-xl border border-white/50 dark:border-white/10"
+          data-speed="0.55"
+          alt="Girl with a Pearl Earring"
+          src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Meisje_met_de_parel.jpg"
+          style="bottom:-6%; left:-6%; width:30rem; transform:rotate(-3deg)"
+        />
+
+        <!-- Foreground floating shapes -->
+        <div class="parallax-layer" data-speed="0.75" aria-hidden="true">
+          <div class="absolute -right-24 top-20 h-56 w-56 rounded-full bg-brand/20 blur-2xl dark:bg-brand/30"></div>
+          <div class="absolute -left-24 bottom-10 h-72 w-72 rounded-full bg-brand/10 blur-3xl dark:bg-brand/20"></div>
+        </div>
+      </div>
+
+      <div class="container position-relative z-10 py-5">
+        <div class="row align-items-center min-vh-75">
+          <div class="col-lg-7">
+            <h1 class="display-4 fw-bold leading-tight mb-3 tracking-tight">
+              Parallax Scrolling Art Gallery
+            </h1>
+            <p class="lead text-muted dark:text-gray-300 mb-4">
+              Experience famous masterpieces and photography with a dynamic, multi-layer parallax effect. Smooth, responsive, and theme-aware.
+            </p>
+            <div class="d-flex gap-3">
+              <a href="#gallery" class="btn btn-primary px-4 py-2">Browse Gallery</a>
+              <a href="#about" class="btn btn-outline-primary px-4 py-2">Learn More</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gallery -->
+    <section id="gallery" class="py-5">
+      <div class="container">
+        <div class="text-center mb-4">
+          <h2 class="h1 fw-semibold">Featured Works</h2>
+          <p class="text-muted dark:text-gray-300">A curated selection of iconic art and photography.</p>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          <!-- Card 1 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1024px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg" class="card-img-top object-cover" alt="Starry Night by Vincent van Gogh" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Starry Night</h3>
+                <p class="card-text text-muted dark:text-gray-300">Vincent van Gogh, 1889</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/0/0a/The_Great_Wave_off_Kanagawa.jpg" class="card-img-top object-cover" alt="The Great Wave off Kanagawa by Hokusai" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">The Great Wave</h3>
+                <p class="card-text text-muted dark:text-gray-300">Katsushika Hokusai, 1831</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://upload.wikimedia.org/wikipedia/commons/d/d7/Meisje_met_de_parel.jpg" class="card-img-top object-cover" alt="Girl with a Pearl Earring by Vermeer" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Girl with a Pearl Earring</h3>
+                <p class="card-text text-muted dark:text-gray-300">Johannes Vermeer, c. 1665</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 4 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1526318472351-c75fcf070305?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Black and white portrait photography" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Monochrome Portrait</h3>
+                <p class="card-text text-muted dark:text-gray-300">Contemporary Photography</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 5 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1495562569060-2eec283d3391?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Abstract colorful shapes" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Abstract Geometry</h3>
+                <p class="card-text text-muted dark:text-gray-300">Digital Art</p>
+              </div>
+            </article>
+          </div>
+
+          <!-- Card 6 -->
+          <div class="col">
+            <article class="card h-100 overflow-hidden transition-all duration-300 hover:shadow-2xl rounded-xl reveal">
+              <img src="https://images.unsplash.com/photo-1473649085228-583485e6e4d7?q=80&w=1200&auto=format&fit=crop" class="card-img-top object-cover" alt="Landscape photography of mountains" />
+              <div class="card-body">
+                <h3 class="card-title h5 mb-1">Alpine Vista</h3>
+                <p class="card-text text-muted dark:text-gray-300">Landscape Photography</p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="py-5 border-top border-gray-200/60 dark:border-white/10">
+      <div class="container">
+        <div class="row align-items-center g-4">
+          <div class="col-lg-6">
+            <h2 class="h1 fw-semibold mb-3">Crafted for Scroll Lovers</h2>
+            <p class="text-muted dark:text-gray-300 mb-3">
+              This gallery demonstrates a layered parallax effect powered by JavaScript with accessibility and performance in mind. Use the theme toggle to switch between light and dark modes. All images are public domain or free-to-use photography.
+            </p>
+            <ul class="list-unstyled small text-muted dark:text-gray-300">
+              <li class="mb-2">Responsive layout via <strong>Bootstrap</strong> grid</li>
+              <li class="mb-2">Utilities and theming via <strong>Tailwind</strong></li>
+              <li class="mb-2">Smooth parallax using <strong>requestAnimationFrame</strong></li>
+            </ul>
+          </div>
+          <div class="col-lg-6">
+            <div class="rounded-3 p-4 bg-light dark:bg-gray-800 border border-gray-200 dark:border-white/10">
+              <pre class="m-0 text-sm"><code>// Toggle theme
+const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+const stored = localStorage.getItem('theme');
+const initial = stored ? stored === 'dark' : prefersDark;
+document.documentElement.classList.toggle('dark', initial);
+</code></pre>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <button id="backToTop" class="fixed bottom-6 right-6 z-40 btn btn-primary rounded-circle w-12 h-12 p-0 d-flex align-items-center justify-content-center opacity-0 pointer-events-none transition" aria-label="Back to top">↑</button>
+
+    <footer class="py-4 border-top border-gray-200/60 dark:border-white/10">
+      <div class="container d-flex justify-content-between align-items-center">
+        <p class="m-0 text-muted dark:text-gray-300 small">© <span id="year"></span> Parallax Gallery</p>
+        <a href="#hero" class="text-decoration-none small">Back to top</a>
+      </div>
+    </footer>
+
+    <!-- Bootstrap Bundle with Popper -->
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- App Script -->
+    <script src="./script.js"></script>
+  </body>
+  </html>
+
+
